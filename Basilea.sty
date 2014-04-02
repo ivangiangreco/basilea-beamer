@@ -1,0 +1,229 @@
+% Based on http://blog.barisione.org/2007-09/torino-a-pretty-theme-for-latex-beamer/
+% Adjustments for University of Basel, Department of Mathematics and Computer Science
+% Ivan Giangreco
+% March 2014
+
+\usepackage[utf8]{inputenc}
+
+\graphicspath{{Figures/}}
+
+\mode<presentation>
+
+\usepackage{dashrule}
+
+% text to be set for frontpage
+\newcommand*{\universitylogo}[1]{\def\universitylogoint{#1}}
+\newcommand*{\universitysignet}[1]{\def\universitysignetint{#1}}
+
+% Have user add more information.
+\newcommand*{\email}[1]{\def\insertemail{#1}}
+
+% Turn off navigation symbols.
+\setbeamertemplate{navigation symbols}{}
+
+% Items.
+\defbeamertemplate{itemize item}{squarealt}%
+{\tiny\raise.5ex\hbox{\donotcoloroutermaths$\blacksquare$}}
+\defbeamertemplate{itemize subitem}{squarealt}%
+{\tiny\raise.4ex\hbox{\donotcoloroutermaths$\square$}}
+\defbeamertemplate{itemize subsubitem}{squarealt}%
+{\tiny\raise.3ex\hbox{\donotcoloroutermaths$\blacksquare$}}
+\setbeamertemplate{items}[squarealt]
+
+% Colors.
+\definecolor{csgreen}{RGB}{175,220,68}
+\definecolor{csgray}{RGB}{137,145,154}
+
+\setbeamercolor*{palette highlight}{fg=black,bg=csgreen}
+\setbeamercolor*{palette line}{fg=black,bg=csgray}
+\setbeamercolor*{title page header}{parent=palette highlight}
+\setbeamercolor*{titlelike}{bg=black}
+\setbeamercolor*{frametitle}{bg=black,fg=black}
+\setbeamercolor*{lineup}{parent=palette line}
+\setbeamercolor*{part title}{bg=black,fg=black}
+\setbeamercolor*{item}{fg=csgray}
+\setbeamercolor*{page footer}{parent=palette highlight}
+
+\setbeamercolor{note page}{bg=white, fg=black}
+
+\setbeamercovered{transparent}
+
+
+% Lengths.
+\newlength{\beamer@fancy@lineup}
+\setlength{\beamer@fancy@lineup}{.025\paperheight}
+\newlength{\beamer@fancy@linemid}
+\setlength{\beamer@fancy@linemid}{.015\paperheight}
+\newlength{\beamer@fancy@linebottom}
+\setlength{\beamer@fancy@linebottom}{.01\paperheight}
+\newlength{\headerheight}
+\setlength{\headerheight}{.045\paperheight}
+
+% Margins.
+\newlength{\beamer@fancy@normalmargin}
+\setlength{\beamer@fancy@normalmargin}{.06\paperwidth}
+\setbeamersize{text margin left=\beamer@fancy@normalmargin}
+\setbeamersize{text margin right=\beamer@fancy@normalmargin}
+\setlength\leftmargini{.6\beamer@fancy@normalmargin}
+\setlength\leftmarginii{.6\beamer@fancy@normalmargin}
+\setlength\leftmarginiii{.6\beamer@fancy@normalmargin}
+
+% Font.
+\usefonttheme{professionalfonts}
+
+\setbeamerfont{author}{size={\fontsize{8}{12}}}
+\setbeamerfont{email}{size={\fontsize{6}{12}}}
+\setbeamerfont{institute}{size={\fontsize{8}{12}}}
+\setbeamerfont{date}{size={\fontsize{8}{12}}}
+\setbeamerfont{title in head/foot}{series=\mdseries,size={\fontsize{6}{6}}}
+
+% Title page, you should use this in a frame with the [plain] option.
+\defbeamertemplate*{title page normal}{fancy theme}[1][]{
+    {\parskip0pt\offinterlineskip%
+    \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
+    \@tempdima=\textwidth\textwidth=\paperwidth\hsize=\textwidth\def\\{,}\vbox{}\vskip-1.5ex%
+    
+    % Top Logo.
+    \begin{beamercolorbox}[wd=\paperwidth,ht=5ex,leftskip=2ex,dp=0.3\paperheight]{title page header}
+        \includegraphics[height=2ex]{\universitylogoint}
+    \end{beamercolorbox}%
+    
+    \vbox{}\vskip-\beamer@fancy@lineup%
+    \vbox{}\vskip-\beamer@fancy@linemid%
+    }}%
+    \hskip-\Gm@rmargin%
+    }}\hfil%
+    %
+    
+    % Title.
+    \vskip4ex
+    \usebeamerfont{title}\inserttitle\par%
+    \ifx\insertsubtitle\@empty%
+    \else%
+    \vskip0.25ex%
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+    \fi%  
+    \def\beamer@decolines@truetext{true}%
+    \vskip-.25\beamer@leftmargin%
+    
+    \begin{beamercolorbox}[wd=\textwidth,ht=.1ex,dp=0ex]{}%
+        \usebeamercolor[bg]{lineup}\hdashrule{\textwidth}{0.5pt}{1pt 1pt} 
+    \end{beamercolorbox}%
+    \vspace{2ex}%
+    
+    % Authors, institute and date
+    \begin{beamercolorbox}[wd=\textwidth]{author}
+        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{csgray}{\textless \insertemail \textgreater} \\[1ex]
+        \usebeamerfont{institute}\insertinstitute \\[1ex]
+        \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}
+    
+    \vfill
+    \begin{beamercolorbox}[wd=.90\paperwidth,center]{}
+        \includegraphics[width=3ex]{\universitysignetint}
+    \end{beamercolorbox}
+}
+
+
+\defbeamertemplate*{title page}{fancy}[1][]
+{
+    \def\beamer@fancy@truetext{true}%
+    \usebeamertemplate{title page normal}%
+}
+
+
+% General frame.
+\defbeamertemplate*{frametitle}{decolines theme}[1][left]
+{
+\ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+\@tempdima=\textwidth%
+\advance\@tempdima by\beamer@leftmargin%
+\advance\@tempdima by\beamer@rightmargin%
+\vbox{}\vskip-.5\beamer@leftmargin%
+\begin{beamercolorbox}[sep=\beamer@leftmargin,#1,wd=\the\@tempdima]{}
+    \usebeamerfont{frametitle}\usebeamercolor[bg]{framesubtitle}%
+    \vbox{}\vskip0ex%
+    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+    \strut\insertframetitle\strut\par%
+    {%
+    \ifx\insertframesubtitle\@empty%
+    \else%
+    {\usebeamerfont{framesubtitle}\usebeamercolor[bg]{framesubtitle}\insertframesubtitle\strut\par}%
+    \fi}%
+    \vskip-1ex%
+    \if@tempswa\else\vskip-\beamer@leftmargin\fi
+    \end{beamercolorbox}%
+\def\beamer@decolines@truetext{true}%
+\vskip-.5\beamer@leftmargin%
+\begin{beamercolorbox}[wd=\textwidth,ht=.1ex,dp=0ex]{}%
+    \usebeamercolor[bg]{lineup}\hdashrule{\textwidth}{0.5pt}{1pt 1pt} 
+\end{beamercolorbox}%
+}
+
+% Frame title continuations, default
+\defbeamertemplate*{frametitle continuation}{decolines theme}{(\insertcontinuationcount)}
+
+
+% Last slide
+\newenvironment{changemargin}[2]{
+    \begin{list}{}{
+        \setlength{\topsep}{0pt}
+        \setlength{\leftmargin}{#1}
+        \setlength{\rightmargin}{#2}
+        \setlength{\listparindent}{\parindent}
+        \setlength{\itemindent}{\parindent}
+        \setlength{\parsep}{\parskip}
+    }\item[]}{
+    \end{list}
+}
+
+\newcommand{\lastpage}[1]{
+  \begin{changemargin}{0.5\textwidth}{\rightmargin}
+    \begin{columns}
+        \column{.6\textwidth}
+            {\parskip0pt\offinterlineskip%
+            \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
+            \vbox{}\vskip-1.75ex%
+            \begin{beamercolorbox}[wd=\textwidth,ht=\paperheight]{title page header}
+            \end{beamercolorbox}%
+            \vbox{}\vskip-\beamer@fancy@lineup%
+            \vbox{}\vskip-\beamer@fancy@linemid%
+            }}%
+            \hskip-\Gm@rmargin%
+            }}\hfil%
+            \vskip4ex
+        \column{.4\textwidth}
+            \vspace*{0.25\textheight} \\
+            {\raggedright {#1}}
+    \end{columns}
+  \end{changemargin}
+}
+
+
+% Blocks (box)
+\setbeamertemplate{blocks}[shadow=false]
+\setbeamercolor{block title}{fg=white,bg=csgreen!100}
+\setbeamercolor{block body}{bg=csgreen!40}
+
+
+\addtobeamertemplate{block begin}{
+    \setlength{\textwidth}{0.9\textwidth}
+}{}
+
+
+
+% Footer.
+\defbeamertemplate*{footline}{decolines theme}
+{
+\hbox{%
+\begin{beamercolorbox}[wd=.90\paperwidth,ht=3ex,dp=1.5ex,left,leftskip=2ex]{page footer}%
+    \usebeamerfont{title in head/foot}\insertshorttitle{}
+\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.90\paperwidth,ht=3ex,dp=1.5ex,left,leftskip=2ex]{page footer}%
+    \usebeamerfont{title in head/foot} \insertframenumber{} / \inserttotalframenumber
+\end{beamercolorbox}}%
+}
+
+
+\mode
+<all>
