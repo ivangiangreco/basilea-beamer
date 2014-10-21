@@ -14,6 +14,7 @@
 % text to be set for frontpage
 \newcommand*{\universitylogo}[1]{\def\universitylogoint{#1}}
 \newcommand*{\universitysignet}[1]{\def\universitysignetint{#1}}
+\newcommand*{\universitylistelement}[1]{\def\universitylistelementint{#1}}
 
 % Have user add more information.
 \newcommand*{\email}[1]{\def\insertemail{#1}}
@@ -163,6 +164,15 @@
 % Frame title continuations, default
 \defbeamertemplate*{frametitle continuation}{decolines theme}{(\insertcontinuationcount)}
 
+% List elements
+\defbeamertemplate{itemize item}{image}{\small\includegraphics[height=1.6ex]{\universitylistelementint}}
+\defbeamertemplate{itemize subitem}{image}{\scriptsize\includegraphics[height=1.6ex]{\universitylistelementint}}
+\defbeamertemplate{itemize subsubitem}{image}{\tiny\includegraphics[height=1.6ex]{\universitylistelementint}}
+
+\setbeamertemplate{itemize item}[image]
+\setbeamertemplate{itemize subitem}[image]
+\setbeamertemplate{itemize subsubitem}[image]
+
 
 % Last slide
 \newenvironment{changemargin}[2]{
@@ -207,10 +217,22 @@
 
 
 \addtobeamertemplate{block begin}{
-    \setlength{\textwidth}{0.9\textwidth}
+    \setlength{\textwidth}{\textwidth}
 }{}
 
 
+% Adjust caption
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+
+% Backup slides
+\newcommand{\backupbegin}{
+   \newcounter{finalframe}
+   \setcounter{finalframe}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \setcounter{framenumber}{\value{finalframe}}
+}
 
 % Footer.
 \defbeamertemplate*{footline}{decolines theme}
