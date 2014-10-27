@@ -1,6 +1,11 @@
 \documentclass{beamer}
 \usepackage{basilea}
 
+%notes
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+%\setbeamertemplate{note page}[plain]
+%\setbeameroption{show notes on second screen=bottom}
+
 \title              {Title}
 
 \author             {Author}
@@ -9,9 +14,11 @@
 
 \date               {Date}
 
-\universitylogo		{Template/header}
-\universitysignet	{Template/signet}
+\ulogo        		{Template/header}
+\usignet            	{Template/signet}
+\ulistelement    	{Template/listelement}
 
+\graphicspath{{Figures/}}
 
 
 \begin{document}
@@ -22,7 +29,7 @@
 \note{Notes can help you to remember important information. Turn on the notes option.}
 
 \begin{frame}[c]{Some Images}
-\begin{columns}
+\begin{columns}[c]
     \column{.55\textwidth}
             \includegraphics[width=0.8\textwidth]{block}
     \column{.45\textwidth}
@@ -35,13 +42,14 @@
 \begin{frame}[c]{Some Images}
     \begin{figure}
         \includegraphics[width=0.8\textwidth]{turingmachine}
+        \caption{A Turing Machine.}
     \end{figure}
 \end{frame}
 
 \note{Notes can help you to remember important information. Turn on the notes option.}
 
 \begin{frame}[c]{Some Equations}
-Noew we introduce an equation.
+Now we introduce an equation.
 \begin{theorem}
 A Turing Machine is a 7-Tuple:
 \begin{equation}
@@ -50,6 +58,26 @@ A Turing Machine is a 7-Tuple:
 \end{theorem}
 A Turing Machine is a 7-Tuple even if defined in the text, as in $M = \langle Q, \Gamma, b, \Sigma, \delta, q_0, F \rangle$.
 \end{frame}
+
+\note{Notes can help you to remember important information. Turn on the notes option.}
+
+\begin{frame}[t]{Items and Numbers}
+\begin{columns}
+    \column{.5\textwidth}
+            \begin{itemize}
+            \item one
+            \item two
+            \item three
+            \end{itemize}
+    \column{.5\textwidth}
+            \begin{enumerate}
+            \item first
+            \item second
+            \item third
+            \end{enumerate}
+\end{columns}
+\end{frame}
+
 
 \note{Notes can help you to remember important information. Turn on the notes option.}
 
