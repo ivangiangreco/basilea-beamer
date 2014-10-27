@@ -9,12 +9,16 @@
 
 \mode<presentation>
 
+% Package used for dash rule in titles
 \usepackage{dashrule}
 
-% text to be set for frontpage
-\newcommand*{\universitylogo}[1]{\def\universitylogoint{#1}}
-\newcommand*{\universitysignet}[1]{\def\universitysignetint{#1}}
-\newcommand*{\universitylistelement}[1]{\def\universitylistelementint{#1}}
+% Packages used for displaying notes
+\usepackage{pgfpages}
+
+% Text to be set for frontpage
+\newcommand*{\ulogo}[1]{\def\ulogoint{#1}}
+\newcommand*{\usignet}[1]{\def\usignetint{#1}}
+\newcommand*{\ulistelement}[1]{\def\ulistelementint{#1}}
 
 % Have user add more information.
 \newcommand*{\email}[1]{\def\insertemail{#1}}
@@ -32,17 +36,17 @@
 \setbeamertemplate{items}[squarealt]
 
 % Colors.
-\definecolor{csgreen}{RGB}{175,220,68}
-\definecolor{csgray}{RGB}{137,145,154}
+\definecolor{hcolor}{RGB}{175,220,68}
+\definecolor{lcolor}{RGB}{137,145,154}
 
-\setbeamercolor*{palette highlight}{fg=black,bg=csgreen}
-\setbeamercolor*{palette line}{fg=black,bg=csgray}
+\setbeamercolor*{palette highlight}{fg=black,bg=hcolor}
+\setbeamercolor*{palette line}{fg=black,bg=lcolor}
 \setbeamercolor*{title page header}{parent=palette highlight}
 \setbeamercolor*{titlelike}{bg=black}
 \setbeamercolor*{frametitle}{bg=black,fg=black}
 \setbeamercolor*{lineup}{parent=palette line}
 \setbeamercolor*{part title}{bg=black,fg=black}
-\setbeamercolor*{item}{fg=csgray}
+\setbeamercolor*{item}{fg=hcolor}
 \setbeamercolor*{page footer}{parent=palette highlight}
 
 \setbeamercolor{note page}{bg=white, fg=black}
@@ -85,8 +89,8 @@
     \@tempdima=\textwidth\textwidth=\paperwidth\hsize=\textwidth\def\\{,}\vbox{}\vskip-1.5ex%
     
     % Top Logo.
-    \begin{beamercolorbox}[wd=\paperwidth,ht=5ex,leftskip=2ex,dp=0.3\paperheight]{title page header}
-        \includegraphics[height=2ex]{\universitylogoint}
+    \begin{beamercolorbox}[wd=\paperwidth,ht=5ex,leftskip=2ex,dp=0.2\paperheight]{title page header}
+        \includegraphics[height=2ex]{\ulogoint}
     \end{beamercolorbox}%
     
     \vbox{}\vskip-\beamer@fancy@lineup%
@@ -114,14 +118,14 @@
     
     % Authors, institute and date
     \begin{beamercolorbox}[wd=\textwidth]{author}
-        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{csgray}{\textless \insertemail \textgreater} \\[1ex]
+        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater} \\[1ex]
         \usebeamerfont{institute}\insertinstitute \\[1ex]
         \usebeamerfont{date}\insertdate
     \end{beamercolorbox}
     
     \vfill
     \begin{beamercolorbox}[wd=.90\paperwidth,center]{}
-        \includegraphics[width=3ex]{\universitysignetint}
+        \includegraphics[width=3ex]{\usignetint}
     \end{beamercolorbox}
 }
 
@@ -165,9 +169,9 @@
 \defbeamertemplate*{frametitle continuation}{decolines theme}{(\insertcontinuationcount)}
 
 % List elements
-\defbeamertemplate{itemize item}{image}{\small\includegraphics[height=1.6ex]{\universitylistelementint}}
-\defbeamertemplate{itemize subitem}{image}{\scriptsize\includegraphics[height=1.6ex]{\universitylistelementint}}
-\defbeamertemplate{itemize subsubitem}{image}{\tiny\includegraphics[height=1.6ex]{\universitylistelementint}}
+\defbeamertemplate{itemize item}{image}{\small\includegraphics[height=1.6ex]{\ulistelementint}}
+\defbeamertemplate{itemize subitem}{image}{\scriptsize\includegraphics[height=1.6ex]{\ulistelementint}}
+\defbeamertemplate{itemize subsubitem}{image}{\tiny\includegraphics[height=1.6ex]{\ulistelementint}}
 
 \setbeamertemplate{itemize item}[image]
 \setbeamertemplate{itemize subitem}[image]
@@ -203,7 +207,6 @@
             }}\hfil%
             \vskip4ex
         \column{.4\textwidth}
-            \vspace*{0.25\textheight} \\
             {\raggedright {#1}}
     \end{columns}
   \end{changemargin}
@@ -212,14 +215,8 @@
 
 % Blocks (box)
 \setbeamertemplate{blocks}[shadow=false]
-\setbeamercolor{block title}{fg=white,bg=csgreen!100}
-\setbeamercolor{block body}{bg=csgreen!40}
-
-
-\addtobeamertemplate{block begin}{
-    \setlength{\textwidth}{\textwidth}
-}{}
-
+\setbeamercolor{block title}{fg=white,bg=hcolor!100}
+\setbeamercolor{block body}{bg=hcolor!40}
 
 % Adjust caption
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
@@ -238,10 +235,11 @@
 \defbeamertemplate*{footline}{decolines theme}
 {
 \hbox{%
-\begin{beamercolorbox}[wd=.90\paperwidth,ht=3ex,dp=1.5ex,left,leftskip=2ex]{page footer}%
+\begin{beamercolorbox}[wd=0.9\textwidth,ht=3ex,dp=1.5ex,left,leftskip=2ex]{page footer}%
     \usebeamerfont{title in head/foot}\insertshorttitle{}
 \end{beamercolorbox}%
-\begin{beamercolorbox}[wd=.90\paperwidth,ht=3ex,dp=1.5ex,left,leftskip=2ex]{page footer}%
+\begin{beamercolorbox}[wd=0.1\textwidth,ht=3ex,dp=1.5ex,right,leftskip=2ex]{page footer}%
+    \centering
     \usebeamerfont{title in head/foot} \insertframenumber{} / \inserttotalframenumber
 \end{beamercolorbox}}%
 }
