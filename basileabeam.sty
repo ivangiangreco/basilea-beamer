@@ -1,7 +1,7 @@
 % Based on http://blog.barisione.org/2007-09/torino-a-pretty-theme-for-latex-beamer/
 % Adjustments for University of Basel, Department of Mathematics and Computer Science
 % Ivan Giangreco
-% March 2014
+% February 2015
 
 \usepackage[utf8]{inputenc}
 
@@ -17,7 +17,6 @@
 
 % Text to be set for frontpage
 \newcommand*{\ulogo}[1]{\def\ulogoint{#1}}
-\newcommand*{\usignet}[1]{\def\usignetint{#1}}
 \newcommand*{\ulistelement}[1]{\def\ulistelementint{#1}}
 
 % Have user add more information.
@@ -36,8 +35,8 @@
 \setbeamertemplate{items}[squarealt]
 
 % Colors.
-\definecolor{hcolor}{RGB}{175,220,68}
-\definecolor{lcolor}{RGB}{137,145,154}
+\definecolor{hcolor}{RGB}{165,215,210}
+\definecolor{lcolor}{RGB}{45,55,60}
 
 \setbeamercolor*{palette highlight}{fg=black,bg=hcolor}
 \setbeamercolor*{palette line}{fg=black,bg=lcolor}
@@ -75,22 +74,31 @@
 
 % Font.
 \usefonttheme{professionalfonts}
-
+\usepackage{fontspec}%	
+\newfontfamily\utitlefont{Georgia}%
+%
+\setmainfont{Arial}%
+\setsansfont{Arial}%
+%
 \setbeamerfont{author}{size={\fontsize{8}{12}}}
 \setbeamerfont{email}{size={\fontsize{6}{12}}}
 \setbeamerfont{institute}{size={\fontsize{8}{12}}}
 \setbeamerfont{date}{size={\fontsize{8}{12}}}
 \setbeamerfont{title in head/foot}{series=\mdseries,size={\fontsize{6}{6}}}
+\setbeamerfont{information}{family=\sffamily}
+\setbeamerfont{title}{family=\utitlefont}
+\setbeamerfont{frametitle}{family=\utitlefont}
+
 
 % Title page, you should use this in a frame with the [plain] option.
 \defbeamertemplate*{title page normal}{fancy theme}[1][]{
     {\parskip0pt\offinterlineskip%
     \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
     \@tempdima=\textwidth\textwidth=\paperwidth\hsize=\textwidth\def\\{,}\vbox{}\vskip-1.5ex%
-    
+       
     % Top Logo.
-    \begin{beamercolorbox}[wd=\paperwidth,ht=5ex,leftskip=2ex,dp=0.2\paperheight]{title page header}
-        \includegraphics[height=2ex]{\ulogoint}
+    \begin{beamercolorbox}[wd=\paperwidth,ht=7ex,leftskip=2ex,dp=0.25\paperheight]{title page header}
+        \includegraphics[height=4ex]{\ulogoint} \newline \newline
     \end{beamercolorbox}%
     
     \vbox{}\vskip-\beamer@fancy@lineup%
@@ -118,14 +126,12 @@
     
     % Authors, institute and date
     \begin{beamercolorbox}[wd=\textwidth]{author}
-        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater} \\[1ex]
-        \usebeamerfont{institute}\insertinstitute \\[1ex]
-        \usebeamerfont{date}\insertdate
-    \end{beamercolorbox}
-    
-    \vfill
-    \begin{beamercolorbox}[wd=.90\paperwidth,center]{}
-        \includegraphics[width=3ex]{\usignetint}
+    {%
+    	\usebeamerfont{information}%
+        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater} \\[1ex]%
+        \usebeamerfont{institute}\insertinstitute \\[1ex]%
+        \usebeamerfont{date}\insertdate%
+    }
     \end{beamercolorbox}
 }
 
