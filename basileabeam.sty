@@ -37,6 +37,7 @@
 % Colors.
 \definecolor{hcolor}{RGB}{165,215,210}
 \definecolor{lcolor}{RGB}{45,55,60}
+\definecolor{highlightcolor}{RGB}{210,5,55}
 
 \setbeamercolor*{palette highlight}{fg=black,bg=hcolor}
 \setbeamercolor*{palette line}{fg=black,bg=lcolor}
@@ -88,6 +89,9 @@
 \setbeamerfont{information}{family=\sffamily}
 \setbeamerfont{title}{family=\utitlefont}
 \setbeamerfont{frametitle}{family=\utitlefont}
+
+\DeclareTextFontCommand{\emph}{\bfseries}
+\DeclareTextFontCommand{\red}{\bfseries\textcolor{highlightcolor}}
 
 
 % Title page, you should use this in a frame with the [plain] option.
