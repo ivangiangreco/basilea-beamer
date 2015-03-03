@@ -258,6 +258,32 @@
 \end{beamercolorbox}}%
 }
 
+% Bibliography
+\usepackage[backend=biber,style=authoryear,hyperref=false]{biblatex}
+\defbibenvironment{bibliography}
+  {\list{}
+     {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\labelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\itemsep}%
+      \setlength{\parsep}{\parsep}}}
+  {\endlist}
+  {\item}
+  
+\setbeamercolor{bibliography item}{parent=palette primary}
+\setbeamercolor*{bibliography entry author}{parent=palette primary}
+\setbeamercolor*{bibliography entry title}{parent=palette primary}
+\setbeamercolor*{bibliography entry note}{parent=palette primary}
+
+\setbeamertemplate{bibliography item}{\small\includegraphics[height=1.6ex]{\ulistelementint}}
+
+\renewcommand*{\citesetup}{\tiny}
+\renewcommand*{\bibfont}{\footnotesize}
+
+\DeclareBibliographyCategory{cited}
+\AtEveryCitekey{\addtocategory{cited}{\thefield{entrykey}}}
+\nocite{*}
 
 \mode
 <all>
