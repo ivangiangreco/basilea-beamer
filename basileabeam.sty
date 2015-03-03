@@ -39,6 +39,7 @@
 \definecolor{lcolor}{RGB}{45,55,60}
 \definecolor{highlightcolor}{RGB}{210,5,55}
 
+\setbeamercolor*{palette primary}{fg=black,bg=white}
 \setbeamercolor*{palette highlight}{fg=black,bg=hcolor}
 \setbeamercolor*{palette line}{fg=black,bg=lcolor}
 \setbeamercolor*{title page header}{parent=palette highlight}
@@ -48,6 +49,7 @@
 \setbeamercolor*{part title}{bg=black,fg=black}
 \setbeamercolor*{item}{fg=hcolor}
 \setbeamercolor*{page footer}{parent=palette highlight}
+\hypersetup{colorlinks=false,linkcolor=hcolor,urlcolor=hcolor,citecolor=lcolor}
 
 \setbeamercolor{note page}{bg=white, fg=black}
 
@@ -225,8 +227,10 @@
 
 % Blocks (box)
 \setbeamertemplate{blocks}[shadow=false]
+\setbeamertemplate{theorems}[normal font]
 \setbeamercolor{block title}{fg=black,bg=hcolor!100}
 \setbeamercolor{block body}{bg=hcolor!40}
+\setbeamercolor{block body example}{bg=hcolor!40}
 
 % Adjust caption
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
