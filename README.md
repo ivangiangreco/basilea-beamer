@@ -1,1 +1,1 @@
-Latex Beamer Template for Presentations (Uni Basel, Computer Science Department)
+Latex Beamer Template for Presentations (University of Basel, Department of Mathematics and Computer Science, DBIS)
