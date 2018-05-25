@@ -25,6 +25,9 @@
 % Turn off navigation symbols.
 \setbeamertemplate{navigation symbols}{}
 
+% Required to make basileabeam pdf/xelatex ready
+\usepackage{ifpdf}
+
 % Items.
 \defbeamertemplate{itemize item}{squarealt}%
 {\tiny\raise.5ex\hbox{\donotcoloroutermaths$\blacksquare$}}
@@ -77,12 +80,16 @@
 \setlength\leftmarginiii{.6\beamer@fancy@normalmargin}
 
 % Font.
+% This is only available for xe/luatex
+\ifpdf % do not use this on non xe/luatex
+% nothing
+\else
 \usefonttheme{professionalfonts}
 \usepackage{fontspec}%	
 \newfontfamily\utitlefont{Georgia}%
-%
 \setmainfont{Arial}%
 \setsansfont{Arial}%
+\fi
 %
 \setbeamerfont{author}{size={\fontsize{8}{12}}}
 \setbeamerfont{email}{size={\fontsize{6}{12}}}
@@ -90,8 +97,13 @@
 \setbeamerfont{date}{size={\fontsize{8}{12}}}
 \setbeamerfont{title in head/foot}{series=\mdseries,size={\fontsize{6}{6}}}
 \setbeamerfont{information}{family=\sffamily}
+% again, the special utitlefont is only available on xe/luatex
+\ifpdf
+% nothing
+\else
 \setbeamerfont{title}{family=\utitlefont}
 \setbeamerfont{frametitle}{family=\utitlefont}
+\fi
 
 \DeclareTextFontCommand{\emph}{\bfseries}
 \DeclareTextFontCommand{\red}{\bfseries\textcolor{highlightcolor}}
