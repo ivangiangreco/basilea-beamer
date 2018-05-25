@@ -25,6 +25,12 @@
 % Turn off navigation symbols.
 \setbeamertemplate{navigation symbols}{}
 
+% Required to make basileabeam pdf/xelatex ready
+\usepackage{ifpdf}
+
+% Required to position the logo on the title page
+\usepackage{tikz}
+
 % Items.
 \defbeamertemplate{itemize item}{squarealt}%
 {\tiny\raise.5ex\hbox{\donotcoloroutermaths$\blacksquare$}}
@@ -67,6 +73,14 @@
 \newlength{\headerheight}
 \setlength{\headerheight}{.045\paperheight}
 
+% This particular setting is because 1ex pdflatex < 1ex xelatex
+% sets the height of the logo
+\ifpdf
+\def\ulogoheightint{5ex}
+\else
+\def\ulogoheightint{4ex}
+\fi
+
 % Margins.
 \newlength{\beamer@fancy@normalmargin}
 \setlength{\beamer@fancy@normalmargin}{.06\paperwidth}
@@ -77,12 +91,16 @@
 \setlength\leftmarginiii{.6\beamer@fancy@normalmargin}
 
 % Font.
+% This is only available for xe/luatex
+\ifpdf % do not use this on non xe/luatex
+% nothing
+\else
 \usefonttheme{professionalfonts}
 \usepackage{fontspec}%	
 \newfontfamily\utitlefont{Georgia}%
-%
 \setmainfont{Arial}%
 \setsansfont{Arial}%
+\fi
 %
 \setbeamerfont{author}{size={\fontsize{8}{12}}}
 \setbeamerfont{email}{size={\fontsize{6}{12}}}
@@ -90,8 +108,13 @@
 \setbeamerfont{date}{size={\fontsize{8}{12}}}
 \setbeamerfont{title in head/foot}{series=\mdseries,size={\fontsize{6}{6}}}
 \setbeamerfont{information}{family=\sffamily}
+% again, the special utitlefont is only available on xe/luatex
+\ifpdf
+% nothing
+\else
 \setbeamerfont{title}{family=\utitlefont}
 \setbeamerfont{frametitle}{family=\utitlefont}
+\fi
 
 \DeclareTextFontCommand{\emph}{\bfseries}
 \DeclareTextFontCommand{\red}{\bfseries\textcolor{highlightcolor}}
@@ -105,8 +128,17 @@
        
     % Top Logo.
     \begin{beamercolorbox}[wd=\paperwidth,ht=7ex,leftskip=2ex,dp=0.25\paperheight]{title page header}
-        \includegraphics[height=4ex]{\ulogoint} \newline \newline
+        %\includegraphics[height=4ex]{\ulogoint}
+        \newline \newline
     \end{beamercolorbox}%
+    
+    %% Top Logo positioned with tikz
+    \begin{tikzpicture}[remember picture,overlay]
+		\node[%
+    yshift=-1.5em,xshift=1.5em
+    ] (img) at (current page.north west) [anchor=north west]{%
+			\includegraphics[height=\ulogoheightint]{\ulogoint}};
+    \end{tikzpicture}
     
     \vbox{}\vskip-\beamer@fancy@lineup%
     \vbox{}\vskip-\beamer@fancy@linemid%
