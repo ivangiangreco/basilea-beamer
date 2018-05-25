@@ -28,6 +28,9 @@
 % Required to make basileabeam pdf/xelatex ready
 \usepackage{ifpdf}
 
+% Required to position the logo on the title page
+\usepackage{tikz}
+
 % Items.
 \defbeamertemplate{itemize item}{squarealt}%
 {\tiny\raise.5ex\hbox{\donotcoloroutermaths$\blacksquare$}}
@@ -69,6 +72,14 @@
 \setlength{\beamer@fancy@linebottom}{.01\paperheight}
 \newlength{\headerheight}
 \setlength{\headerheight}{.045\paperheight}
+
+% This particular setting is because 1ex pdflatex < 1ex xelatex
+% sets the height of the logo
+\ifpdf
+\def\ulogoheightint{5ex}
+\else
+\def\ulogoheightint{4ex}
+\fi
 
 % Margins.
 \newlength{\beamer@fancy@normalmargin}
@@ -117,8 +128,17 @@
        
     % Top Logo.
     \begin{beamercolorbox}[wd=\paperwidth,ht=7ex,leftskip=2ex,dp=0.25\paperheight]{title page header}
-        \includegraphics[height=4ex]{\ulogoint} \newline \newline
+        %\includegraphics[height=4ex]{\ulogoint}
+        \newline \newline
     \end{beamercolorbox}%
+    
+    %% Top Logo positioned with tikz
+    \begin{tikzpicture}[remember picture,overlay]
+		\node[%
+    yshift=-1.5em,xshift=1.5em
+    ] (img) at (current page.north west) [anchor=north west]{%
+			\includegraphics[height=\ulogoheightint]{\ulogoint}};
+    \end{tikzpicture}
     
     \vbox{}\vskip-\beamer@fancy@lineup%
     \vbox{}\vskip-\beamer@fancy@linemid%
