@@ -22,6 +22,8 @@
 % Have user add more information.
 \newcommand*{\email}[1]{\def\insertemail{#1}}
 
+
+
 % Turn off navigation symbols.
 \setbeamertemplate{navigation symbols}{}
 
@@ -167,7 +169,14 @@
     \begin{beamercolorbox}[wd=\textwidth]{author}
     {%
     	\usebeamerfont{information}%
-        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater} \\[1ex]%
+        \usebeamerfont{author}\insertauthor \hspace{1ex}
+       \usebeamerfont{email}\textcolor{lcolor}{
+       	\ifx\insertemail\@empty%
+       	\\[1ex]%
+       	\else%
+       	\textless \insertemail \textgreater \\[1ex]%
+       	\fi%
+       	} %
         \usebeamerfont{institute}\insertinstitute \\[1ex]%
         \usebeamerfont{date}\insertdate%
     }
