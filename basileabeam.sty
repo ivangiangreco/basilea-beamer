@@ -20,7 +20,10 @@
 \newcommand*{\ulistelement}[1]{\def\ulistelementint{#1}}
 
 % Have user add more information.
-\newcommand*{\email}[1]{\def\insertemail{#1}}
+%\newcommand*{\email}[1]{\def\insertemail{#1}}
+\newcommand*{\email}[1]{\ifdefined\email \def\insertemail{#1}\fi}
+
+
 
 % Turn off navigation symbols.
 \setbeamertemplate{navigation symbols}{}
@@ -167,7 +170,18 @@
     \begin{beamercolorbox}[wd=\textwidth]{author}
     {%
     	\usebeamerfont{information}%
-        \usebeamerfont{author}\insertauthor \hspace{1ex} \usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater} \\[1ex]%
+        \usebeamerfont{author}\insertauthor \hspace{1ex}
+        % Email is only printed if defined by user with \email{} and there is some content
+       \ifdefined\insertemail{%
+       		\ifx\insertemail\@empty%
+       		\\[1ex]%
+       		\else%
+       		\usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater}\\[1ex]%
+       		\fi%}
+       }\else{%
+       	\\[1ex]%
+    	}%
+    	\fi%
         \usebeamerfont{institute}\insertinstitute \\[1ex]%
         \usebeamerfont{date}\insertdate%
     }
