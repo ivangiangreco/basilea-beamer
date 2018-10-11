@@ -173,7 +173,11 @@
         \usebeamerfont{author}\insertauthor \hspace{1ex}
         % Email is only printed if defined by user with \email{} and there is some content
        \ifdefined\insertemail{%
+       		\ifx\insertemail\@empty%
+       		\\[1ex]%
+       		\else%
        		\usebeamerfont{email}\textcolor{lcolor}{\textless \insertemail \textgreater}\\[1ex]%
+       		\fi%}
        }\else{%
        	\\[1ex]%
     	}%
