@@ -31,6 +31,17 @@
 % Required to make basileabeam pdf/xelatex ready
 \usepackage{ifpdf}
 
+% Required to have more commands (i.e. boolean flags)
+\usepackage{etoolbox}
+
+% Flag to turn off the total number of frames in the footer
+% i.e. if flag is on: in footer x / y
+% if flag is off: in footer x
+\providetoggle{bbTotalNoSlidesEnabled}
+\toggletrue{bbTotalNoSlidesEnabled} % Default is true i.e. x / y
+\newcommand{\totalNoSlidesDisabled}{\togglefalse{bbTotalNoSlidesEnabled}}
+
+
 % Required to position the logo on the title page
 \usepackage{tikz}
 
@@ -44,9 +55,21 @@
 \setbeamertemplate{items}[squarealt]
 
 % Colors.
-\definecolor{hcolor}{RGB}{165,215,210}
-\definecolor{lcolor}{RGB}{45,55,60}
-\definecolor{highlightcolor}{RGB}{210,5,55}
+\definecolor{hcolor}{RGB}{165,215,210} % Color 1
+\definecolor{lcolor}{RGB}{45,55,60} % Color 3
+\definecolor{highlightcolor}{RGB}{210,5,55} % Color 5
+
+%% Official color sequence
+\definecolor{bcolor1}{RGB}{165,215,210}
+\definecolor{bcolor2}{RGB}{30,165,165}
+\definecolor{bcolor3}{RGB}{45,55,60}
+\definecolor{bcolor4}{RGB}{140,145,150}
+\definecolor{bcolor5}{RGB}{210,5,55}
+\definecolor{bcolor6}{RGB}{235,130,155}
+\definecolor{bcolor7}{RGB}{190,195,200}
+\definecolor{bcolor8}{RGB}{0,110,110}
+\definecolor{bcolor9}{RGB}{0,0,0}
+\definecolor{bcolor10}{RGB}{255,255,255}
 
 \setbeamercolor*{palette primary}{fg=black,bg=white}
 \setbeamercolor*{palette highlight}{fg=black,bg=hcolor}
@@ -301,7 +324,8 @@
 \end{beamercolorbox}%
 \begin{beamercolorbox}[wd=0.1\textwidth,ht=3ex,dp=1.5ex,right,leftskip=2ex]{page footer}%
     \centering
-    \usebeamerfont{title in head/foot} \insertframenumber{} / \inserttotalframenumber
+    \usebeamerfont{title in head/foot}%
+    \iftoggle{bbTotalNoSlidesEnabled}{\insertframenumber{} / \inserttotalframenumber}{\insertframenumber}%
 \end{beamercolorbox}}%
 }
 
