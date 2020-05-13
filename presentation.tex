@@ -1,7 +1,7 @@
 \documentclass[aspectratio=169]{beamer}
 \usepackage{basileabeam}
 
-%notes
+% Notes:
 %\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
 %\setbeamertemplate{note page}[plain]
 %\setbeameroption{show notes on second screen=bottom}
@@ -19,14 +19,21 @@
 
 \graphicspath{{Figures/}}
 
+% Options:
 \totalNoSlidesDisabled % To turn off the total number of slides in the footer. Comment this if you want the total number of slides in the footer
 
+\headerSectionsDisabled % Comment this if you want a fancy header containing your sections.
+
+
 \begin{document}
+
 \begin{frame}[t,plain]
 \titlepage
 \end{frame}
 
 \note{Notes can help you to remember important information. Turn on the notes option.}
+
+\section{Section 1}	% You can also have slides prior to the first section or work entirely without sections.
 
 \begin{frame}[c]{Some Images}
 \begin{columns}[c]
@@ -60,6 +67,8 @@ A Turing Machine is a 7-Tuple even if defined in the text, as in $M = \langle Q,
 \end{frame}
 
 \note{Notes can help you to remember important information. Turn on the notes option.}
+
+\section{Section 2}
 
 \begin{frame}[t]{Items and Numbers}
 \begin{columns}
