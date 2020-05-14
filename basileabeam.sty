@@ -41,6 +41,10 @@
 \toggletrue{bbTotalNoSlidesEnabled} % Default is true i.e. x / y
 \newcommand{\totalNoSlidesDisabled}{\togglefalse{bbTotalNoSlidesEnabled}}
 
+% Flag to turn off the header containing sections, enabled by default.
+\providetoggle{bbHeaderSectionsEnabled}
+\toggletrue{bbHeaderSectionsEnabled} % Default is true, i.e. with header.
+\newcommand{\headerSectionsDisabled}{\togglefalse{bbHeaderSectionsEnabled}}
 
 % Required to position the logo on the title page
 \usepackage{tikz}
@@ -315,6 +319,20 @@
    \setcounter{framenumber}{\value{finalframe}}
 }
 
+% Header.
+\defbeamertemplate*{headline}{decolines theme}{%
+	\iftoggle{bbHeaderSectionsEnabled}{
+		\leavevmode%
+		\hbox{%
+			\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{page footer}%
+				% Flush the bar to the left.
+				\setbeamercolor{section in head/foot}{fg=black, bg=white}
+				\insertsectionnavigationhorizontal{\paperwidth}{\hskip0pt plus1fill}{\hskip0pt plus1fill}
+			\end{beamercolorbox}%
+		}
+	}{}
+}
+	
 % Footer.
 \defbeamertemplate*{footline}{decolines theme}
 {
