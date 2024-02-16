@@ -1,4 +1,7 @@
-\documentclass[aspectratio=169]{beamer}
+\documentclass[%
+    aspectratio=169, % Aspect ratio. 43 and 169 are supported for the title slide
+    onlytextwidth,   % Restricts the beamer columns environment to only use the text width
+]{beamer}
 \usepackage{basileabeam}
 
 % Notes:
@@ -24,6 +27,11 @@
 
 \headerSectionsDisabled % Comment this if you want a fancy header containing your sections.
 
+% have the University of Basel logo on the title slide
+\unibasLogoEnabled
+
+% Use frame numbers in contrast to page numbering, or comment it to have page numbers again
+\pageNumberingEnabled
 
 \begin{document}
 
@@ -35,12 +43,12 @@
 
 \section{Section 1}	% You can also have slides prior to the first section or work entirely without sections.
 
-\begin{frame}[c]{Some Images}
+\begin{frame}[label=turing,c]{Some Images}
 \begin{columns}[c]
     \column{.55\textwidth}
             \includegraphics[width=0.8\textwidth]{block}
     \column{.45\textwidth}
-            Turing machine
+            Turing machine \cite{turing:1936,turing:1950}
 \end{columns}
 \end{frame}
 
@@ -64,6 +72,23 @@ A Turing Machine is a 7-Tuple:
 \end{equation}
 \end{theorem}
 A Turing Machine is a 7-Tuple even if defined in the text, as in $M = \langle Q, \Gamma, b, \Sigma, \delta, q_0, F \rangle$.
+\end{frame}
+
+\begin{frame}[c]{Beamer Overlays}
+    \begin{columns}
+        \column<+->{.3\textwidth}
+            This page consists of three columns,
+        \column<+->{.3\textwidth}
+            which are gradually revealed
+        \column<+->{.3\textwidth}
+            with the power of Beamer Overlays.
+    \end{columns}
+    \bigskip{}
+
+    Check out the beamer class user documentation \url{https://texdoc.org/serve/beamer/0}, in particular chapter 9 for overlays.
+    \bigskip{}
+    
+    This slide also demonstrates that one should add the beamer option \texttt{onlytextwidth}.
 \end{frame}
 
 \note{Notes can help you to remember important information. Turn on the notes option.}
@@ -104,6 +129,8 @@ Computing machinery and intelligence & 6130 & \\ \hline
 \end{frame}
 
 \note{Notes can help you to remember important information. Turn on the notes option.}
+
+\againframe{turing} % Search this file for label=turing to find the frame definition
 
 \begin{frame}[c]{Speaker Notes}
 You may turn on the notes and handout option to see the notes to the slides.
