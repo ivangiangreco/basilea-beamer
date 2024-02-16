@@ -1,38 +1,65 @@
 % Based on http://blog.barisione.org/2007-09/torino-a-pretty-theme-for-latex-beamer/
 % Adjustments for University of Basel, Department of Mathematics and Computer Science
+%
+% Version: February 2024
+%
+% # Owner and Maintainer:
 % Ivan Giangreco
 % February 2015
+%
+% # Contributors
+% Simon Peterhans
+% Luckas Beck
+% Loris Sauter
+%
+% Licesensed under MIT License, see LICENSE.md file
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{basileabeam}[2024/02/16 Basilea Beamer: Latex beamer in the CD of the University of Basel]
 
-\usepackage[utf8]{inputenc}
 
-\graphicspath{{Figures/}}
+%% --------------------------------------------
+%% Preliminary Declarations and Dependencies
+%% --------------------------------------------
 
-\mode<presentation>
+%% Dependencies
+% Required to have more commands (i.e. boolean flags)
+\RequirePackage{etoolbox}
 
 % Package used for dash rule in titles
-\usepackage{dashrule}
+\RequirePackage{dashrule}
 
 % Packages used for displaying notes
-\usepackage{pgfpages}
+\RequirePackage{pgfpages}
+
+% Required to make basileabeam pdf/xelatex ready
+\RequirePackage{ifpdf}
+
+\ifpdf
+% Standard package in case non utf8 based engines (specifically, pdflatex)
+\RequirePackage[utf8]{inputenc}
+\else
+\fi
+
+% Required to position the logo on the title page, also enables drawing
+\RequirePackage{tikz}
+
+%% Declarations
+
+% Set graphics path, such that includegraphics works without path
+\graphicspath{{Figures/}}
 
 % Text to be set for frontpage
 \newcommand*{\ulogo}[1]{\def\ulogoint{#1}}
 \newcommand*{\ulistelement}[1]{\def\ulistelementint{#1}}
 
 % Have user add more information.
-%\newcommand*{\email}[1]{\def\insertemail{#1}}
 \newcommand*{\email}[1]{\ifdefined\email \def\insertemail{#1}\fi}
-
-
 
 % Turn off navigation symbols.
 \setbeamertemplate{navigation symbols}{}
 
-% Required to make basileabeam pdf/xelatex ready
-\usepackage{ifpdf}
-
-% Required to have more commands (i.e. boolean flags)
-\usepackage{etoolbox}
+%% Flags
 
 % Flag to turn off the total number of frames in the footer
 % i.e. if flag is on: in footer x / y
@@ -46,8 +73,18 @@
 \toggletrue{bbHeaderSectionsEnabled} % Default is true, i.e. with header.
 \newcommand{\headerSectionsDisabled}{\togglefalse{bbHeaderSectionsEnabled}}
 
-% Required to position the logo on the title page
-\usepackage{tikz}
+% Flag to switch between frame numbers (default) and
+% page numbers. Using beamer overlay features advances page numbers, but not frame numbers
+\providetoggle{bbFrameNumberingEnabled}
+\toggletrue{bbFrameNumberingEnabled} % default is true, i.e. FRAME numbers are used
+\newcommand{\pageNumberingEnabled}{\togglefalse{bbFrameNumberingEnabled}}
+
+% Flag to disable the University of Basel logo in the title slide
+\providetoggle{bbUnibasLogoDisabled}
+\togglefalse{bbUnibasLogoDisabled} % Default is false, i.e. the logo is rendered
+\newcommand{\unibasLogoEnabled}{\togglefalse{bbUnibasLogoDisabled}}
+
+\mode<presentation>
 
 % Items.
 \defbeamertemplate{itemize item}{squarealt}%
@@ -64,16 +101,16 @@
 \definecolor{highlightcolor}{RGB}{210,5,55} % Color 5
 
 %% Official color sequence
-\definecolor{bcolor1}{RGB}{165,215,210}
-\definecolor{bcolor2}{RGB}{30,165,165}
-\definecolor{bcolor3}{RGB}{45,55,60}
-\definecolor{bcolor4}{RGB}{140,145,150}
-\definecolor{bcolor5}{RGB}{210,5,55}
-\definecolor{bcolor6}{RGB}{235,130,155}
-\definecolor{bcolor7}{RGB}{190,195,200}
-\definecolor{bcolor8}{RGB}{0,110,110}
-\definecolor{bcolor9}{RGB}{0,0,0}
-\definecolor{bcolor10}{RGB}{255,255,255}
+\definecolor{bcolor1}{RGB}{165,215,210}  % unibasmint
+\definecolor{bcolor2}{RGB}{30,165,165}   % unibasmarine
+\definecolor{bcolor3}{RGB}{45,55,60}     % unibasanthrazit
+\definecolor{bcolor4}{RGB}{140,145,150}  % unibasdarkgrey
+\definecolor{bcolor5}{RGB}{210,5,55}     % unibasred
+\definecolor{bcolor6}{RGB}{235,130,155}  % unibasrose
+\definecolor{bcolor7}{RGB}{190,195,200}  % unibaslightgrey
+\definecolor{bcolor8}{RGB}{0,110,110}    % unibasseaweed
+\definecolor{bcolor9}{RGB}{0,0,0}        % unibasblack === black
+\definecolor{bcolor10}{RGB}{255,255,255} % unibaswhite === white
 
 \setbeamercolor*{palette primary}{fg=black,bg=white}
 \setbeamercolor*{palette highlight}{fg=black,bg=hcolor}
@@ -158,8 +195,7 @@
        
     % Top Logo.
     \begin{beamercolorbox}[wd=\paperwidth,ht=7ex,leftskip=2ex,dp=0.25\paperheight]{title page header}
-        %\includegraphics[height=4ex]{\ulogoint}
-        \newline \newline
+     % This is the colour box on the title page
     \end{beamercolorbox}%
     
     %% Top Logo positioned with tikz
@@ -167,7 +203,12 @@
 		\node[%
     yshift=-1.5em,xshift=1.5em
     ] (img) at (current page.north west) [anchor=north west]{%
-			\includegraphics[height=\ulogoheightint]{\ulogoint}};
+      \iftoggle{bbUnibasLogoDisabled}{%
+        \newline \newline%
+      }{%
+        \includegraphics[height=\ulogoheightint]{\ulogoint}%
+      }%
+      };
     \end{tikzpicture}
     
     \vbox{}\vskip-\beamer@fancy@lineup%
@@ -284,7 +325,7 @@
             {\parskip0pt\offinterlineskip%
             \hbox{\hskip-\Gm@lmargin\hbox{\vbox{%
             \vbox{}\vskip-1.75ex%
-            \begin{beamercolorbox}[wd=\textwidth,ht=\paperheight]{title page header}
+            \begin{beamercolorbox}[wd=\textwidth,ht=1.1\paperheight]{title page header}
             \end{beamercolorbox}%
             \vbox{}\vskip-\beamer@fancy@lineup%
             \vbox{}\vskip-\beamer@fancy@linemid%
@@ -343,12 +384,22 @@
 \begin{beamercolorbox}[wd=0.1\textwidth,ht=3ex,dp=1.5ex,right,leftskip=2ex]{page footer}%
     \centering
     \usebeamerfont{title in head/foot}%
-    \iftoggle{bbTotalNoSlidesEnabled}{\insertframenumber{} / \inserttotalframenumber}{\insertframenumber}%
+    \iftoggle{bbTotalNoSlidesEnabled}{%
+      \iftoggle{bbFrameNumberingEnabled}{
+        %% We use normal frame numbers, i.e. Text \pause Text results in twice the same number
+        \insertframenumber{} / \inserttotalframenumber%
+      }{%
+        %% We use page numbers, i.e. Text \pause Text results in consequetive numbering
+        \insertpagenumber{} / \insertpresentationendpage%
+      }%
+    }{%
+    \iftoggle{bbFrameNumberingEnabled}{\insertframenumber}{\insertpagenumber}%
+    }%
 \end{beamercolorbox}}%
 }
 
 % Bibliography
-\usepackage[backend=biber,style=authoryear,hyperref=false]{biblatex}
+\RequirePackage[backend=biber,style=authoryear,hyperref=false]{biblatex}
 \defbibenvironment{bibliography}
   {\list{}
      {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
@@ -366,6 +417,8 @@
 \setbeamercolor*{bibliography entry note}{parent=palette primary}
 
 \setbeamertemplate{bibliography item}{\small\includegraphics[height=1.6ex]{\ulistelementint}}
+
+\addbibresource{bibliography.bib}
 
 \renewcommand*{\citesetup}{\tiny}
 \renewcommand*{\bibfont}{\footnotesize}
